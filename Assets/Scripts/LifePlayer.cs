@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LifePlayer : MonoBehaviour
 {
-    [SerializeField] private int health = 3;
+    [SerializeField] private float health;
 
     [SerializeField] private HealthSystem healthSystem;
 

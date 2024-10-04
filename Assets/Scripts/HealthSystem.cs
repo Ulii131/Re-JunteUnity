@@ -15,6 +15,7 @@ public class HealthSystem : MonoBehaviour
     public void ChangeMaxHealth(float MaxHealth)
     {
         slider.maxValue = MaxHealth;
+        
     }
 
     public void ChangeNowHealth(float countHealth)

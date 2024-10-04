@@ -18,12 +18,21 @@ public class EnemyMov : MonoBehaviour
 
     private void Start()
     {
+        //Variable que buscará al objeto con tag "Enemy" en la escena
+        audioSource = GetComponent<AudioSource>();
+
         score = FindObjectOfType<ScorePlayer>();
-        audioSource = GetComponent<AudioSource>(); // Obtener el AudioSource
+
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource no encontrado en el prefab del enemigo.");
+        }
+
     }
 
     void Update()
     {
+
         if (target != null)
         {
             Vector3 direction = (target.position - transform.position).normalized;
@@ -46,15 +55,23 @@ public class EnemyMov : MonoBehaviour
         {
             score.IncrementScore(scoreCount);
             PlayDeathSound(); // Reproducir el sonido de muerte
-            Destroy(gameObject);
+            Destroy(gameObject, 0.3f);
         }
     }
 
     private void PlayDeathSound()
     {
-        if (audioSource && enemyDeathSound)
+        if (audioSource != null && enemyDeathSound != null)
         {
+            if (!audioSource.enabled)
+            {
+                audioSource.enabled = true;
+            }
             audioSource.PlayOneShot(enemyDeathSound); // Reproducir el sonido
+
+        } else
+        {
+            Debug.LogWarning("AudioClip no asignado");
         }
-    }
+}
 }
